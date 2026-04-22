@@ -1,0 +1,558 @@
+[
+  {
+    "cat": "global",
+    "name": "GBD 2023 — Cardiovascular Burden",
+    "org": "IHME, University of Washington",
+    "badge": "Dịch tễ học toàn cầu",
+    "bclass": "badge-blue",
+    "desc": "Dữ liệu gánh nặng bệnh tim mạch & đột quỵ tại 204 quốc gia từ 1990–2023. Bao gồm tử vong, DALYs, tỷ lệ mắc và 15 yếu tố nguy cơ.",
+    "tags": [
+      "204 quốc gia",
+      "DALYs",
+      "Incidence",
+      "Mortality",
+      "Risk factors",
+      "ICD-9/10"
+    ],
+    "access": "free",
+    "url": "ghdx.healthdata.org/record/ihme-data/cvd-1990-2023"
+  },
+  {
+    "cat": "global",
+    "name": "WHO CVD & Stroke Fact Sheet",
+    "org": "World Health Organization",
+    "badge": "Chính sách y tế",
+    "bclass": "badge-blue",
+    "desc": "Số liệu thống kê chính thức WHO về bệnh tim mạch & đột quỵ toàn cầu. Cập nhật hàng năm, dùng làm baseline cho mọi nghiên cứu.",
+    "tags": [
+      "WHO official",
+      "Risk factors",
+      "Prevention",
+      "Global stats"
+    ],
+    "access": "free",
+    "url": "who.int/news-room/fact-sheets/detail/cardiovascular-diseases"
+  },
+  {
+    "cat": "global",
+    "name": "AHA Statistical Update 2025",
+    "org": "American Heart Association + NIH",
+    "badge": "Thống kê lâm sàng",
+    "bclass": "badge-blue",
+    "desc": "Báo cáo thường niên đầy đủ nhất về bệnh tim & đột quỵ (Mỹ + toàn cầu). Tích hợp ~3000 nguồn dữ liệu mới. Công bố trên tạp chí Circulation.",
+    "tags": [
+      "Life's Essential 8",
+      "Epidemiology",
+      "US+Global",
+      "Peer-reviewed"
+    ],
+    "access": "free",
+    "url": "ahajournals.org/doi/10.1161/CIR.0000000000001303"
+  },
+  {
+    "cat": "global",
+    "name": "WSO Global Stroke Fact Sheet 2025",
+    "org": "World Stroke Organization",
+    "badge": "Đột quỵ toàn cầu",
+    "bclass": "badge-red",
+    "desc": "Số liệu đột quỵ mới nhất từ GBD 2021: 7.25 triệu ca tử vong/năm, 160 triệu DALYs. Được WSO Executive Committee xác nhận.",
+    "tags": [
+      "Stroke",
+      "DALYs",
+      "Ischemic",
+      "Hemorrhagic",
+      "SAH",
+      "Global"
+    ],
+    "access": "free",
+    "url": "pmc.ncbi.nlm.nih.gov/articles/PMC11786524"
+  },
+  {
+    "cat": "global",
+    "name": "Our World in Data — CVD",
+    "org": "OWID + IHME GBD",
+    "badge": "Trực quan hóa",
+    "bclass": "badge-blue",
+    "desc": "Dữ liệu GBD được chuẩn hóa, sẵn sàng tải CSV. Bao gồm tỷ lệ mắc, xu hướng theo thời gian, so sánh quốc gia.",
+    "tags": [
+      "CSV ready",
+      "Time series",
+      "Country comparison",
+      "Prevalence"
+    ],
+    "access": "free",
+    "url": "ourworldindata.org/cardiovascular-diseases"
+  },
+  {
+    "cat": "global",
+    "name": "ESC Atlas of Cardiology",
+    "org": "European Society of Cardiology",
+    "badge": "Châu Âu",
+    "bclass": "badge-blue",
+    "desc": "Dữ liệu tim mạch 57 quốc gia châu Âu: tỷ lệ tử vong, cơ sở hạ tầng y tế, phương pháp điều trị theo quốc gia.",
+    "tags": [
+      "Europe",
+      "57 countries",
+      "Healthcare capacity",
+      "Procedures"
+    ],
+    "access": "free",
+    "url": "atlas.escardio.org"
+  },
+  {
+    "cat": "clinical",
+    "name": "MIMIC-IV Clinical Database",
+    "org": "MIT + Beth Israel Deaconess Medical Center",
+    "badge": "EHR bệnh nhân ICU",
+    "bclass": "badge-green",
+    "desc": "Hồ sơ điện tử ẩn danh của bệnh nhân ICU: dấu hiệu sinh tồn, xét nghiệm, chẩn đoán, thuốc, ghi chú lâm sàng. 500K+ lần nhập viện.",
+    "tags": [
+      "ICU",
+      "EHR",
+      "Lab results",
+      "Clinical notes",
+      "ICD codes",
+      "Free-text"
+    ],
+    "access": "reg",
+    "url": "physionet.org/content/mimiciv"
+  },
+  {
+    "cat": "clinical",
+    "name": "eICU Collaborative Research DB",
+    "org": "PhilipsHealthcare + MIT",
+    "badge": "Đa trung tâm",
+    "bclass": "badge-green",
+    "desc": "Dữ liệu ICU từ 200+ bệnh viện Mỹ. Đặc biệt mạnh về dữ liệu đa trung tâm để validate mô hình AI.",
+    "tags": [
+      "Multi-center",
+      "200+ hospitals",
+      "ICU",
+      "Vital signs",
+      "Medication"
+    ],
+    "access": "reg",
+    "url": "physionet.org/content/eicu-crd"
+  },
+  {
+    "cat": "clinical",
+    "name": "UK Biobank",
+    "org": "UK Biobank / NHS",
+    "badge": "Cohort dân số",
+    "bclass": "badge-green",
+    "desc": "500,000 người Anh theo dõi dài hạn. Dữ liệu gen, hình ảnh MRI tim, ECG, hồ sơ y tế, lối sống.",
+    "tags": [
+      "500K subjects",
+      "Genetic",
+      "Cardiac MRI",
+      "ECG",
+      "Longitudinal"
+    ],
+    "access": "reg",
+    "url": "ukbiobank.ac.uk"
+  },
+  {
+    "cat": "clinical",
+    "name": "Framingham Heart Study",
+    "org": "NIH / NHLBI",
+    "badge": "Nghiên cứu lịch sử",
+    "bclass": "badge-green",
+    "desc": "Cohort lâu đời nhất (1948–nay), 3 thế hệ. Nền tảng của mọi thang điểm nguy cơ tim mạch hiện đại.",
+    "tags": [
+      "Since 1948",
+      "3 generations",
+      "Risk scoring",
+      "Longitudinal",
+      "Classic"
+    ],
+    "access": "reg",
+    "url": "framinghamheartstudy.org"
+  },
+  {
+    "cat": "clinical",
+    "name": "REGARDS Study",
+    "org": "University of Alabama / NHLBI",
+    "badge": "Đột quỵ + Dân tộc",
+    "bclass": "badge-red",
+    "desc": "30,239 người Mỹ (50% Da đen, 50% Trắng) theo dõi yếu tố nguy cơ tim mạch & đột quỵ. Dữ liệu tốt về sự chênh lệch sắc tộc.",
+    "tags": [
+      "Stroke",
+      "Race disparity",
+      "30K subjects",
+      "Longitudinal"
+    ],
+    "access": "reg",
+    "url": "regardsstudy.org"
+  },
+  {
+    "cat": "clinical",
+    "name": "INTERSTROKE Study",
+    "org": "McMaster University (Lancet)",
+    "badge": "Đột quỵ toàn cầu",
+    "bclass": "badge-red",
+    "desc": "13,447 ca đột quỵ tại 32 quốc gia. 10 yếu tố nguy cơ chiếm 90% gánh nặng đột quỵ toàn cầu. Dữ liệu đa quốc gia hiếm.",
+    "tags": [
+      "32 countries",
+      "Case-control",
+      "13K stroke cases",
+      "Risk factors"
+    ],
+    "access": "reg",
+    "url": "thelancet.com/interstroke"
+  },
+  {
+    "cat": "research",
+    "name": "NHANES (CVD module)",
+    "org": "US CDC / NCHS",
+    "badge": "Khảo sát quốc gia",
+    "bclass": "badge-amber",
+    "desc": "Khảo sát sức khỏe quốc gia Mỹ từ 1999–nay. Huyết áp, cholesterol, ECG, khảo sát lối sống. Dữ liệu mã hóa công khai.",
+    "tags": [
+      "Public domain",
+      "Survey",
+      "Blood pressure",
+      "Cholesterol",
+      "ECG",
+      "FHIR"
+    ],
+    "access": "free",
+    "url": "cdc.gov/nchs/nhanes"
+  },
+  {
+    "cat": "research",
+    "name": "ACS NSQIP Database",
+    "org": "American College of Surgeons",
+    "badge": "Chất lượng phẫu thuật",
+    "bclass": "badge-amber",
+    "desc": "Kết quả phẫu thuật tim tại 700+ bệnh viện Mỹ. Dữ liệu biến chứng, tử vong 30 ngày, được thu thập đồng nhất.",
+    "tags": [
+      "Surgical outcomes",
+      "700+ hospitals",
+      "30-day mortality",
+      "Quality"
+    ],
+    "access": "paid",
+    "url": "facs.org/quality-programs/acs-nsqip"
+  },
+  {
+    "cat": "research",
+    "name": "GWTG — Stroke Registry",
+    "org": "AHA Get With The Guidelines",
+    "badge": "Registry đột quỵ",
+    "bclass": "badge-red",
+    "desc": "7+ triệu ca đột quỵ tại 2,500+ bệnh viện Mỹ. Tiêu chuẩn chăm sóc, thời gian door-to-needle, kết quả điều trị.",
+    "tags": [
+      "7M+ strokes",
+      "2500 hospitals",
+      "Door-to-needle",
+      "Treatment outcomes"
+    ],
+    "access": "paid",
+    "url": "heart.org/gwtg"
+  },
+  {
+    "cat": "research",
+    "name": "TIMI / GUSTO / PLATO Trials",
+    "org": "NIH / ESC / ACC",
+    "badge": "Thử nghiệm lâm sàng",
+    "bclass": "badge-amber",
+    "desc": "Dữ liệu thử nghiệm ngẫu nhiên lớn về nhồi máu cơ tim, điều trị thuốc chống đông. Tiêu chuẩn vàng để validate mô hình AI.",
+    "tags": [
+      "RCT",
+      "Anticoagulation",
+      "MI",
+      "Drug trials",
+      "Gold standard"
+    ],
+    "access": "reg",
+    "url": "clinicaltrials.gov"
+  },
+  {
+    "cat": "research",
+    "name": "ESC EORP Registries",
+    "org": "European Society of Cardiology",
+    "badge": "Registry châu Âu",
+    "bclass": "badge-amber",
+    "desc": "Mạng lưới registry tim mạch châu Âu: ACS, AF, Heart Failure, Valvular Disease. Dữ liệu thực tế từ >40 quốc gia.",
+    "tags": [
+      "ACS",
+      "AF",
+      "Heart Failure",
+      "Europe",
+      "Real-world"
+    ],
+    "access": "reg",
+    "url": "escardio.org/registries"
+  },
+  {
+    "cat": "research",
+    "name": "China Stroke Center Registry",
+    "org": "Chinese Stroke Association",
+    "badge": "Châu Á",
+    "bclass": "badge-amber",
+    "desc": "1.5 triệu ca đột quỵ tại Trung Quốc. Dữ liệu quan trọng cho AI về dân số châu Á — yếu tố nguy cơ khác biệt đáng kể.",
+    "tags": [
+      "1.5M strokes",
+      "Asia",
+      "China",
+      "Hemorrhagic stroke dominant"
+    ],
+    "access": "reg",
+    "url": "chinastroke.net"
+  },
+  {
+    "cat": "imaging",
+    "name": "PhysioNet — ECG Databases",
+    "org": "MIT PhysioNet",
+    "badge": "Tín hiệu sinh lý",
+    "bclass": "badge-green",
+    "desc": "Hàng chục dataset ECG công khai: MIT-BIH Arrhythmia, Long-term AF, Congestive HF. Tiêu chuẩn cho AI phân tích ECG.",
+    "tags": [
+      "ECG",
+      "Arrhythmia",
+      "AF",
+      "Open access",
+      "Signal processing"
+    ],
+    "access": "free",
+    "url": "physionet.org"
+  },
+  {
+    "cat": "imaging",
+    "name": "MIMIC-CXR (Chest X-ray)",
+    "org": "MIT + BIDMC",
+    "badge": "X-quang tim phổi",
+    "bclass": "badge-green",
+    "desc": "227,835 ảnh X-quang ngực kèm báo cáo text. Quan trọng cho AI phát hiện cardiomegaly, phù phổi.",
+    "tags": [
+      "227K images",
+      "CXR",
+      "Radiology reports",
+      "Cardiomegaly",
+      "DICOM"
+    ],
+    "access": "reg",
+    "url": "physionet.org/content/mimic-cxr"
+  },
+  {
+    "cat": "imaging",
+    "name": "EchoNet-Dynamic",
+    "org": "Stanford University",
+    "badge": "Siêu âm tim",
+    "bclass": "badge-green",
+    "desc": "10,030 video siêu âm tim (echo) kèm đo EF (ejection fraction). Benchmark chuẩn cho AI phân tích chức năng tim.",
+    "tags": [
+      "10K echo videos",
+      "EF",
+      "Cardiac function",
+      "Deep learning",
+      "Stanford"
+    ],
+    "access": "free",
+    "url": "echonet.github.io"
+  },
+  {
+    "cat": "imaging",
+    "name": "ACDC Challenge Dataset",
+    "org": "MICCAI / Creatis Lab",
+    "badge": "MRI tim",
+    "bclass": "badge-green",
+    "desc": "150 ca MRI tim có chú thích phân đoạn. Chuẩn quốc tế để train AI phân đoạn cấu trúc tim.",
+    "tags": [
+      "Cardiac MRI",
+      "Segmentation",
+      "150 cases",
+      "Annotated",
+      "Benchmark"
+    ],
+    "access": "free",
+    "url": "acdc.creatis.insa-lyon.fr"
+  },
+  {
+    "cat": "imaging",
+    "name": "ISLES (Stroke MRI)",
+    "org": "MICCAI Challenge",
+    "badge": "MRI đột quỵ",
+    "bclass": "badge-red",
+    "desc": "Dataset MRI đột quỵ cấp & mãn tính có chú thích. Benchmark AI phân đoạn vùng tổn thương não (lesion).",
+    "tags": [
+      "Stroke MRI",
+      "Lesion segmentation",
+      "Acute",
+      "Chronic",
+      "Benchmark"
+    ],
+    "access": "free",
+    "url": "isles-challenge.com"
+  },
+  {
+    "cat": "imaging",
+    "name": "CTA Vessel Segmentation",
+    "org": "Various (Grand Challenge)",
+    "badge": "Mạch máu CT",
+    "bclass": "badge-red",
+    "desc": "Dataset CTA mạch não và tim: phân đoạn động mạch vành, phát hiện hẹp, đánh giá vôi hóa (CAC score).",
+    "tags": [
+      "CTA",
+      "Coronary",
+      "Cerebral vessels",
+      "Stenosis",
+      "CAC score"
+    ],
+    "access": "reg",
+    "url": "grand-challenge.org"
+  },
+  {
+    "cat": "literature",
+    "name": "PubMed / MEDLINE",
+    "org": "US National Library of Medicine",
+    "badge": "Văn liệu y khoa",
+    "bclass": "badge-blue",
+    "desc": "35+ triệu bài báo y khoa. Nguồn cho RAG pipeline: hướng dẫn điều trị, nghiên cứu can thiệp, ca lâm sàng.",
+    "tags": [
+      "35M+ articles",
+      "Open access PMC",
+      "Full text",
+      "API available",
+      "RAG"
+    ],
+    "access": "free",
+    "url": "pubmed.ncbi.nlm.nih.gov"
+  },
+  {
+    "cat": "literature",
+    "name": "ESC Clinical Guidelines (2024)",
+    "org": "European Society of Cardiology",
+    "badge": "Hướng dẫn điều trị",
+    "bclass": "badge-blue",
+    "desc": "Bộ hướng dẫn điều trị toàn diện: ACS, HF, AF, Valvular, Stroke. Chuẩn vàng châu Âu. PDF + web đầy đủ.",
+    "tags": [
+      "ACS",
+      "Heart failure",
+      "AF",
+      "Stroke",
+      "Evidence-based",
+      "PDF"
+    ],
+    "access": "free",
+    "url": "escardio.org/guidelines"
+  },
+  {
+    "cat": "literature",
+    "name": "ACC/AHA Clinical Guidelines",
+    "org": "American College of Cardiology",
+    "badge": "Hướng dẫn điều trị",
+    "bclass": "badge-blue",
+    "desc": "Hướng dẫn điều trị chuẩn Mỹ: cholesterol, tăng huyết áp, đột quỵ, phòng ngừa. Cập nhật liên tục theo bằng chứng.",
+    "tags": [
+      "US guidelines",
+      "Hypertension",
+      "Cholesterol",
+      "Prevention",
+      "AF"
+    ],
+    "access": "free",
+    "url": "acc.org/guidelines"
+  },
+  {
+    "cat": "literature",
+    "name": "Cochrane CVD Reviews",
+    "org": "Cochrane Collaboration",
+    "badge": "Phân tích tổng hợp",
+    "bclass": "badge-blue",
+    "desc": "Systematic review & meta-analysis chất lượng cao về can thiệp tim mạch. Nguồn dữ liệu chuẩn cho evidence-based AI.",
+    "tags": [
+      "Systematic review",
+      "Meta-analysis",
+      "RCT",
+      "Intervention",
+      "High quality"
+    ],
+    "access": "free",
+    "url": "cochrane.org/heart"
+  },
+  {
+    "cat": "literature",
+    "name": "ClinicalTrials.gov",
+    "org": "US NIH / NLM",
+    "badge": "Thử nghiệm lâm sàng",
+    "bclass": "badge-amber",
+    "desc": "480K+ thử nghiệm lâm sàng toàn cầu. Dữ liệu thiết kế nghiên cứu, kết quả, tuyển dụng — quan trọng cho AI dự đoán hiệu quả điều trị.",
+    "tags": [
+      "480K trials",
+      "Protocol",
+      "Results",
+      "Global",
+      "Structured data"
+    ],
+    "access": "free",
+    "url": "clinicaltrials.gov"
+  },
+  {
+    "cat": "research",
+    "name": "SCORE2 / PCE Risk Models",
+    "org": "ESC / ACC / AHA",
+    "badge": "Thang điểm nguy cơ",
+    "bclass": "badge-amber",
+    "desc": "Dữ liệu validation của các thang điểm nguy cơ tim mạch (Framingham, SCORE2, PCE). Benchmark để đánh giá mô hình AI.",
+    "tags": [
+      "Risk scoring",
+      "SCORE2",
+      "Framingham",
+      "PCE",
+      "Calibration"
+    ],
+    "access": "free",
+    "url": "escardio.org/SCORE"
+  },
+  {
+    "cat": "global",
+    "name": "WHO NCD Surveillance Data",
+    "org": "WHO Global Health Observatory",
+    "badge": "Giám sát NCD",
+    "bclass": "badge-blue",
+    "desc": "Dữ liệu giám sát bệnh không lây nhiễm toàn cầu: huyết áp, béo phì, hút thuốc, tiểu đường theo quốc gia và năm.",
+    "tags": [
+      "NCD",
+      "Blood pressure",
+      "Obesity",
+      "Smoking",
+      "194 countries"
+    ],
+    "access": "free",
+    "url": "who.int/data/gho"
+  },
+  {
+    "cat": "clinical",
+    "name": "NHIS — National Health Interview Survey",
+    "org": "US CDC",
+    "badge": "Khảo sát dân số",
+    "bclass": "badge-amber",
+    "desc": "Khảo sát sức khỏe hộ gia đình Mỹ từ 1957–nay. Tự báo cáo bệnh tim, đột quỵ, hành vi sức khỏe theo dân tộc.",
+    "tags": [
+      "Survey",
+      "Self-reported",
+      "Since 1957",
+      "Race/ethnicity",
+      "Longitudinal"
+    ],
+    "access": "free",
+    "url": "cdc.gov/nchs/nhis"
+  },
+  {
+    "cat": "methodology",
+    "name": "Báo cáo thu thập và chuẩn bị dữ liệu bệnh tim mạch và đột quỵ cho mô hình AI",
+    "org": "Internal Study",
+    "badge": "Data Preparation",
+    "bclass": "badge-blue",
+    "desc": "Tài liệu chuẩn hóa các quy trình thu nhận (MIMIC-IV, GBD), làm sạch dữ liệu (Data Cleansing) và trích xuất đặc trưng (Feature Engineering) cho AI.",
+    "tags": [
+      "Missing values",
+      "SMOTE",
+      "Feature selection",
+      "CVD parameters"
+    ],
+    "access": "internal",
+    "url": "local_report_CVD_processing.pdf"
+  }
+]

@@ -1,0 +1,21 @@
+{
+  "0c466497-aef8-43d0-ae16-92a93f717de9": {
+    "age": 30,
+    "gender": "male",
+    "bmi": 22.5,
+    "sleep": 7,
+    "sleepBad": 1,
+    "dietVal": 0,
+    "exVal": 3,
+    "job": "ky_thuat",
+    "weightChange": "normal",
+    "surgery": "none",
+    "surgeryDetail": "",
+    "bpVal": 1,
+    "bsVal": 1,
+    "hrVal": 2,
+    "cholVal": 1,
+    "risks": [],
+    "_createdAt": "2026-04-22T15:27:34.072Z"
+  }
+}
