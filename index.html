@@ -344,7 +344,7 @@
 
     <!-- APP CONTENT SCREEN -->
     <div id="appContentScreen" class="screen" style="overflow-y:auto; flex-direction:column; background:#0b0e14;">
-        <button class="news-back-btn" onclick="backToMenu()">QUAY LẠI MENU</button>
+        <button class="news-back-btn" onclick="backToMenu()">◄ QUAY LẠI TRANG CHỦ</button>
         <div class="ac-section"
             style="padding: 100px 20px 120px; min-height:100vh; position:relative; overflow:visible;">
             <div class="ac-header">
@@ -517,6 +517,25 @@
                         </ul>
                         <button onclick="openChat()"
                             style="margin-top:15px; padding: 10px 20px; background: #00d4b4; color: #000; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; width: 100%;">TRÒ CHUYỆN VỚI AI <i class="fa-solid fa-comment"></i></button>
+                    </div>
+                </div>
+
+                <div class="premium-card">
+                    <div class="premium-icon"><i class="fa-solid fa-watch"></i></div>
+                    <h3>Kết Nối Thiết Bị Wearable Thông Minh</h3>
+                    <p>Tích hợp seamless với Apple Watch, Smartwatch, và các thiết bị đeo thông minh khác để giám sát sức khỏe theo thời gian thực, theo dõi nhịp tim và phát hiện các dấu hiệu bất thường.</p>
+                    <button class="ac-btn-premium" onclick="this.nextElementSibling.classList.toggle('open')">CHI TIẾT
+                        <i class="fa-solid fa-arrow-down" style="margin-left: 5px;"></i></button>
+                    <div class="details-content">
+                        <strong style="color: #ffcc00;">TÍNH NĂNG GIÁM SÁT TOÀN DIỆN:</strong>
+                        <ul>
+                            <li>Đồng bộ dữ liệu nhịp tim, oxy máu (SpO₂), và bước chân trong ngày.</li>
+                            <li>Cảnh báo tức thì khi phát hiện nhịp tim bất thường hoặc quá cao.</li>
+                            <li>Hỗ trợ Apple Watch Series 4+, Samsung Galaxy Watch, Fitbit, Garmin.</li>
+                            <li>Báo cáo sức khỏe chi tiết hàng ngày, hàng tuần, hàng tháng.</li>
+                        </ul>
+                        <a href="https://connections.rook-connect.review/client_uuid/3c802f35-20ba-45a1-8566-04a0b991421e/user_id/userID" target="_blank"
+                            style="margin-top:15px; display:block; padding: 10px 20px; background: #6C5CE7; color: #fff; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; width: 100%; text-align:center; text-decoration:none;">🔗 KẾT NỐI NGAY <i class="fa-solid fa-link"></i></a>
                     </div>
                 </div>
             </div>
@@ -696,7 +715,7 @@
                 </div>
                 <div id="missionList" style="font-size:11px;color:#ddd;line-height:1.7;"></div>
             </div>
-            <button class="g-back" onclick="backToMenu()">← MENU</button>
+            <button class="g-back" onclick="backToMenu()">◄ MENU CHÍNH</button>
         </div>
     </div>
     <div class="itip" id="itip">[ E ] TƯƠNG TÁC</div>
@@ -732,7 +751,7 @@
 
     <!-- NEWS SCREEN -->
     <div id="newsScreen" class="screen">
-        <button class="news-back-btn" onclick="backToMenu()">BACK TO MENU</button>
+        <button class="news-back-btn" onclick="backToMenu()">◄ QUAY LẠI TRANG CHỦ</button>
         <div class="news-screen-wrap">
             <div class="news-header">
                 <div style="display:flex; justify-content:space-between; align-items:center; width:100%;">
@@ -776,7 +795,7 @@
             <div style="font-size: 11px; font-weight: normal; color: rgba(255,255,255,0.9);">Trong trường hợp khẩn cấp, VUI LÒNG GỌI NGAY: 📞 <a href="tel:115" style="color:#ffeb3b;text-decoration:none;font-weight:bold;padding:0 5px;">115 (Cấp cứu)</a> hoặc 📞 <a href="tel:113" style="color:#ffeb3b;text-decoration:none;font-weight:bold;padding:0 5px;">113 (Công an)</a></div>
         </div>
 
-        <button class="news-back-btn" style="top: 75px; z-index: 99999;" onclick="backToMenu()">QUAY LẠI MENU</button>
+        <button class="news-back-btn" style="top: 75px; z-index: 99999;" onclick="backToMenu()">◄ QUAY LẠI TRANG CHỦ</button>
         <div class="ai-left">
             <div class="ai-header">
                 <div class="ai-tag">HEALTH MONITOR AI · v2.4</div>
@@ -1097,7 +1116,7 @@
             </div>
             <div class="sett-acts">
                 <button class="sa-btn pri" onclick="saveSettings()">💾 LƯU CÀI ĐẶT</button>
-                <button class="sa-btn sec" onclick="backToMenu()">← QUAY LẠI</button>
+                <button class="sa-btn sec" onclick="backToMenu()">◄ TRANG CHỦ</button>
             </div>
         </div>
     </div>
