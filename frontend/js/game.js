@@ -4316,25 +4316,49 @@ async function sendChatMessage() {
             stream: false
         };
 
+        // Try API endpoint (Vercel or Backend)
         var response = await fetch('/api/chat', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(bodyData)
+            body: JSON.stringify(bodyData),
+            timeout: 8000
         });
 
         if (!response.ok) {
-            throw new Error('API Error: ' + response.status);
+            // If /api/chat fails, try localhost backend
+            console.warn('API endpoint failed, trying localhost backend...');
+            try {
+                response = await fetch('http://localhost:8899/api/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(bodyData),
+                    timeout: 5000
+                });
+            } catch (e2) {
+                console.warn('Localhost backend not available, using offline mode');
+                throw new Error('No API available');
+            }
+        }
+
+        if (!response.ok) {
+            throw new Error('API Error: ' + response.status + ' ' + response.statusText);
         }
 
         var data = await response.json();
         var aiText = "";
         
         if (data.choices && data.choices.length > 0) {
-            aiText = data.choices[0].message.content; // OpenAI format
+            aiText = data.choices[0].message?.content || data.choices[0].message || ''; // OpenAI format
         } else if (data.message && data.message.content) {
             aiText = data.message.content; // Ollama format
+        } else if (typeof data === 'string') {
+            aiText = data;
         } else {
-            throw new Error('Invalid response format');
+            throw new Error('Invalid response format: ' + JSON.stringify(data).substring(0, 100));
+        }
+
+        if (!aiText || aiText.trim().length === 0) {
+            throw new Error('Empty response from API');
         }
 
         var formattedText = formatAIResponse(aiText);
@@ -4346,7 +4370,8 @@ async function sendChatMessage() {
         console.error("Chat API Error:", e);
         // Fallback to offline logic
         var fallbackResponse = getAIResponse(text);
-        appendChatMsg('<em style="color:#ffcc00;font-size:11px;">(Đang dùng chế độ Offline do lỗi kết nối API)</em><br>' + formatAIResponse(fallbackResponse), 'bot');
+        var offlineHint = '<em style="color:#ffcc00;font-size:11px;">🔴 (AI Offline — Dùng chế độ Ngoại tuyến)</em><br>';
+        appendChatMsg(offlineHint + formatAIResponse(fallbackResponse), 'bot');
         chatHistory.push({ role: 'assistant', content: fallbackResponse });
         SFX.warn();
     }
