@@ -713,6 +713,51 @@
                 <div id="missionList" style="font-size:11px;color:#ddd;line-height:1.7;"></div>
             </div>
             <button class="g-back" onclick="backToMenu()">◄ MENU CHÍNH</button>
+            
+            <!-- MOBILE CONTROLS (Visible only on tablet/phone) -->
+            <div id="mobileControls" class="mobile-controls-panel">
+                <!-- D-Pad for Movement -->
+                <div class="dpad-container">
+                    <div class="dpad-title">Di chuyển</div>
+                    <div class="dpad">
+                        <!-- Up Button -->
+                        <button class="dpad-btn dpad-up" id="btnUp" data-key="w" title="Lên (W)">
+                            <i class="fas fa-arrow-up"></i>
+                        </button>
+                        
+                        <!-- Left, Center, Right Row -->
+                        <div class="dpad-row">
+                            <button class="dpad-btn dpad-left" id="btnLeft" data-key="a" title="Trái (A)">
+                                <i class="fas fa-arrow-left"></i>
+                            </button>
+                            <div class="dpad-center"></div>
+                            <button class="dpad-btn dpad-right" id="btnRight" data-key="d" title="Phải (D)">
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                        
+                        <!-- Down Button -->
+                        <button class="dpad-btn dpad-down" id="btnDown" data-key="s" title="Xuống (S)">
+                            <i class="fas fa-arrow-down"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Action Buttons -->
+                <div class="action-buttons-container">
+                    <!-- Interact Button -->
+                    <button class="action-btn interact-btn" id="btnInteract" data-key="e" title="Tương tác (E)">
+                        <i class="fas fa-hand-pointer"></i>
+                        <span>Tương tác</span>
+                    </button>
+                    
+                    <!-- Menu Button -->
+                    <button class="action-btn menu-btn" id="btnMenu" data-key="escape" title="Menu (ESC)">
+                        <i class="fas fa-bars"></i>
+                        <span>Menu</span>
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
     <div class="itip" id="itip">[ E ] TƯƠNG TÁC</div>
@@ -1130,8 +1175,12 @@
                 <div class="online-dot"></div>
                 <span style="font-weight:900; letter-spacing:1.5px; text-shadow:0 0 10px #2979ff">BÁC SĨ AI (Mô phỏng)</span>
             </div>
-            <div style="font-size:10px; opacity:0.6; font-weight:bold; letter-spacing:1px; cursor:pointer"
-                onclick="event.stopPropagation(); toggleChat()">[ THU NHỎ ]</div>
+            <div style="display:flex;gap:8px;align-items:center">
+                <div style="font-size:10px; opacity:0.6; font-weight:bold; letter-spacing:1px; cursor:pointer"
+                    onclick="event.stopPropagation(); toggleChat()">[ THU NHỎ ]</div>
+                <div style="font-size:10px; color:#aaf; opacity:0.9; font-weight:700; letter-spacing:1px; cursor:pointer"
+                    onclick="event.stopPropagation(); startNewCase()" title="Bắt đầu ca trực mới">[ CA MỚI ]</div>
+            </div>
         </div>
         <div class="ai-chat-messages" id="aiChatMessages">
             <div class="chat-msg bot">

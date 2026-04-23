@@ -16,92 +16,76 @@ export default async function handler(req, res) {
         return res.status(405).json({ error: 'Method not allowed' });
     }
 
-    const { messages } = req.body;
-    if (!messages || !Array.isArray(messages)) {
-        res.setHeader('Access-Control-Allow-Origin', '*');
-        return res.status(400).json({ error: 'Invalid request: messages array required' });
+    // --- GIỮ NGUYÊN PHẦN TRÊN CỦA CÁC EM (Dòng 1-17) ---
+
+    // 1. Lấy dữ liệu từ yêu cầu của người dùng
+    const { prompt, history } = req.body;
+
+    // 2. Kiểm tra API Key (đã đặt trong .env.local)
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) {
+        return res.status(500).json({ error: "Thiếu GEMINI_API_KEY trong cấu hình hệ thống." });
     }
 
     try {
-        // Try to use Gemini API if key is available
-        const apiKey = process.env.GEMINI_API_KEY;
+        const { GoogleGenerativeAI } = require("@google/generative-ai");
+        const genAI = new GoogleGenerativeAI(apiKey);
         
-        if (apiKey) {
-            return handleGemini(req, res, messages, apiKey);
-        }
-        
-        // Fallback: return basic response
-        const defaultResponse = 'Xin lỗi, hệ thống AI hiện không khả dụng. Vui lòng thử lại sau hoặc chạy backend server để sử dụng AI Chat.';
-        
-        res.setHeader('Access-Control-Allow-Origin', '*');
-        return res.status(503).json({
-            choices: [{
-                message: {
-                    role: 'assistant',
-                    content: defaultResponse
-                }
-            }]
+        // Sử dụng model Flash cho tốc độ nhanh và phản hồi tức thì
+        const model = genAI.getGenerativeModel({ 
+            model: "gemini-1.5-flash",
+            // Đây là nơi thiết lập "Bác sĩ AI" nghiêm túc, không bị lừa
+            systemInstruction: "Bạn là Bác sĩ AI (Mô phỏng). Trả lời dựa trên kiến thức y khoa thực tế. Nếu người dùng đưa tin giả hoặc sai lệch, hãy đính chính ngay. Luôn kèm cảnh báo kết quả chỉ mang tính tham khảo.",
         });
-        
+
+        // 3. Khởi tạo chat với lịch sử phiên (Session) để AI nhớ bối cảnh
+        const chat = model.startChat({
+            history: history || [], 
+            generationConfig: {
+                temperature: 0.2, // Giữ độ chính xác cao, chống 'chém gió'
+                maxOutputTokens: 1000,
+            },
+        });
+
+        const result = await chat.sendMessage(prompt);
+        const response = await result.response;
+        const text = response.text();
+
+        // 4. Trả kết quả về cho Frontend
+        res.setHeader('Access-Control-Allow-Origin', '*'); // Đảm bảo trả về header cho trình duyệt
+        return res.status(200).json({ text });
+
     } catch (error) {
-        console.error('Chat API Error:', error);
-        res.setHeader('Access-Control-Allow-Origin', '*');
-        return res.status(500).json({
-            error: 'Server error',
-            message: error.message
-        });
+        console.error("Lỗi API Gemini:", error);
+        return res.status(500).json({ error: "AI đang bận, vui lòng thử lại sau!" });
     }
 }
-
 async function handleGemini(req, res, messages, apiKey) {
-    const model = 'gemini-2.0-flash';
-    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+    try {
+        const { GoogleGenerativeAI } = require("@google/generative-ai");
+        const genAI = new GoogleGenerativeAI(apiKey);
+        const model = genAI.getGenerativeModel({ 
+            model: "gemini-1.5-flash",
+            systemInstruction: "Bạn là Bác sĩ AI (Mô phỏng). Trả lời dựa trên kiến thức y tế. Nếu người dùng đưa tin giả, hãy đính chính ngay. Luôn kèm cảnh báo kết quả chỉ mang tính tham khảo.",
+        });
 
-    // Convert to Gemini format
-    let systemInstruction = '';
-    const geminiContents = [];
-
-    messages.forEach(msg => {
-        if (msg.role === 'system') {
-            systemInstruction = msg.content;
-        } else {
-            geminiContents.push({
+        // Chuyển đổi định dạng tin nhắn cho phù hợp với Gemini
+        // Gemini cần 'user' và 'model', các em có thể cần map lại nếu frontend gửi khác
+        const chat = model.startChat({
+            history: messages.slice(0, -1).map(msg => ({
                 role: msg.role === 'assistant' ? 'model' : 'user',
-                parts: [{ text: msg.content }]
-            });
-        }
-    });
+                parts: [{ text: msg.content }],
+            })),
+        });
 
-    const body = {
-        contents: geminiContents,
-        generationConfig: { temperature: 0.7, maxOutputTokens: 1024 }
-    };
-
-    if (systemInstruction) {
-        body.systemInstruction = { parts: [{ text: systemInstruction }] };
+        const lastMessage = messages[messages.length - 1].content;
+        const result = await chat.sendMessage(lastMessage);
+        const response = await result.response;
+        
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        return res.status(200).json({ text: response.text() });
+    } catch (error) {
+        console.error("Lỗi Gemini:", error);
+        return res.status(500).json({ error: "AI đang bận, thử lại sau nhé!" });
     }
-
-    const response = await fetch(apiUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body)
-    });
-
-    const data = await response.json();
-
-    if (!response.ok) {
-        throw new Error(`Gemini API error: ${data.error?.message || response.statusText}`);
-    }
-
-    const aiText = data?.candidates?.[0]?.content?.parts?.[0]?.text || 'Không có phản hồi từ AI';
-
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    return res.status(200).json({
-        choices: [{
-            message: {
-                role: 'assistant',
-                content: aiText
-            }
-        }]
-    });
 }

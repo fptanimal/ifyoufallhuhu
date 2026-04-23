@@ -4265,33 +4265,75 @@ function openChat() {
 
 // ── OLLAMA API CONFIG ──
 // ── CHATBOT API CONFIG ──
-var CHAT_SYSTEM_PROMPT = "Bạn là một trợ lý AI MÔ PHỎNG vai bác sĩ. Bạn KHÔNG PHẢI bác sĩ thật. " +
-    "QUY TẮC BẮT BUỘC: " +
-    "1. Mỗi câu trả lời phải BẮT ĐẦU bằng dòng: '⚠️ Lưu ý: Đây là thông tin tham khảo từ AI, không phải chẩn đoán y khoa.' " +
-    "2. TUYỆT ĐỐI KHÔNG KÊ THUỐC, không đưa ra bất kỳ chỉ định hay tên loại thuốc cụ thể nào thay cho bác sĩ. " +
-    "3. CÂU TRẢ LỜI PHẢI NGẮN GỌN, SÚC TÍCH, đi thẳng vào vấn đề cốt lõi. Tránh lan man dài dòng làm người đọc nhàm chán. " +
-    "4. Mỗi câu trả lời phải KẾT THÚC bằng dòng: '🏥 Nhắc nhở: Nếu bạn có triệu chứng bất thường, hãy đến bệnh viện hoặc gọi 115 ngay.' " +
-    "5. KHÔNG BAO GIỜ đưa ra chẩn đoán cụ thể. Chỉ nêu thông tin tổng quát và khuyên người dùng đi khám. " +
-    "6. Với câu hỏi về triệu chứng nguy hiểm (đau ngực, khó thở, liệt nửa người, co giật) → PHẢI giục gọi 115 NGAY LẬP TỨC. " +
-    "7. Luôn nhấn mạnh rằng AI có thể SAI và KHÔNG đáng tin cậy bằng bác sĩ thật. " +
-    "Luôn dùng ngôn ngữ dễ hiểu, thân thiện, logic gọn gàng và kèm emoji thích hợp.";
+var CHAT_SYSTEM_PROMPT = `VAI TRÒ: Bạn là "Bác sĩ AI (Mô phỏng)" — một trợ lý AI hoạt động chế độ Ngoại tuyến (Offline). Nhiệm vụ: phân tích dữ liệu y tế dựa trên bằng chứng và dữ liệu bệnh án để đưa ra phân tích tham khảo.
+
+NGUYÊN TẮC PHẢN HỒI (CHỐNG TIN GIẢ):
+- Kiểm chứng dữ liệu: nếu người dùng cung cấp thông tin vô lý hoặc nguy hiểm, bác bỏ lịch sự và đưa cảnh báo an toàn.
+- Phạm vi: chỉ trả lời các vấn đề liên quan tới sức khỏe, y tế, lối sống và phân tích chỉ số thiết bị đeo. Từ chối các chủ đề ngoài phạm vi.
+- Tính khách quan: luôn nhắc rằng kết quả chỉ mang tính mô phỏng/tham khảo; không khẳng định 100% nếu thiếu dữ liệu lâm sàng.
+
+QUY TẮC CHIA PHIÊN:
+- Mỗi phiên hội thoại là một trường hợp bệnh nhân riêng biệt; chỉ ghi nhớ thông tin trong phiên hiện tại.
+
+ĐỊNH DẠNG PHẢN HỒI (BẮT BUỘC):
+[Cảnh báo]: (nếu có dấu hiệu nguy hiểm)
+[Phân tích]: (dựa trên dữ liệu người dùng cung cấp)
+[Lời khuyên]: (hướng xử trí / lối sống — KHÔNG thay thế chẩn đoán bác sĩ)
+
+LUÔN: không kê toa, không đưa ra chẩn đoán dứt khoát và khi có triệu chứng nghiêm trọng (đau ngực, khó thở, liệt nửa người, co giật) → phải khuyến cáo gọi 115 ngay.`;
+
+// Window memory: giữ chỉ N cặp (user+assistant) gần nhất để gửi lên API
+var CHAT_WINDOW_PAIRS = 3;
+var DEFAULT_TEMPERATURE = 0.2;
+var DEFAULT_TOP_P = 0.1;
+
+function getPatientSummaryForPrompt() {
+    try {
+        var parts = [];
+        var hrEl = document.getElementById('ai_heart_rate');
+        if (hrEl) parts.push('Nhịp tim: ' + hrEl.options[hrEl.selectedIndex].text);
+        var bpEl = document.getElementById('ai_blood_pressure');
+        if (bpEl) parts.push('Huyết áp: ' + bpEl.options[bpEl.selectedIndex].text);
+        var gluEl = document.getElementById('ai_blood_sugar');
+        if (gluEl) parts.push('Đường huyết: ' + gluEl.options[gluEl.selectedIndex].text);
+        var wEl = document.getElementById('ai_weight');
+        if (wEl && wEl.value) parts.push('Cân nặng: ' + wEl.value + ' kg');
+        var bmiEl = document.getElementById('ai_bmi');
+        if (bmiEl && bmiEl.value) parts.push('BMI: ' + bmiEl.value);
+        var spo2El = document.getElementById('ai_spo2');
+        if (spo2El && spo2El.value) parts.push('SpO2: ' + spo2El.value + '%');
+        return parts.length ? parts.join(' · ') : 'Không có dữ liệu thiết bị/khám ban đầu.';
+    } catch (e) {
+        return 'Không có dữ liệu thiết bị/khám ban đầu.';
+    }
+}
+
+function startNewCase() {
+    chatHistory = [];
+    var chatBox = document.getElementById('aiChatMessages');
+    if (chatBox) {
+        // Clear messages and show notice
+        chatBox.innerHTML = '';
+        appendChatMsg('⚪ Đã bắt đầu ca trực mới. Ngữ cảnh trước đó đã được xóa.', 'bot');
+    }
+}
 var chatHistory = [];
 var isAIChatBusy = false;
 
 async function sendChatMessage() {
     var input = document.getElementById('aiChatInput');
-    var text = input.value.trim();
-    if (!text || isAIChatBusy) return;
+    var rawText = input.value.trim();
+    if (!rawText || isAIChatBusy) return;
 
     isAIChatBusy = true;
-    appendChatMsg(text, 'user');
+    appendChatMsg(rawText, 'user');
     input.value = '';
     input.disabled = true;
     var sendBtn = input.parentElement.querySelector('button');
     if (sendBtn) sendBtn.disabled = true;
     SFX.typing();
 
-    // Show typing indicator  
+    // Show typing indicator
     var typingDiv = document.createElement('div');
     typingDiv.className = 'chat-msg typing';
     typingDiv.id = 'ai-typing-indicator';
@@ -4300,19 +4342,35 @@ async function sendChatMessage() {
     chatBox.appendChild(typingDiv);
     chatBox.scrollTop = chatBox.scrollHeight;
 
-    // Add user message to history
-    chatHistory.push({ role: 'user', content: text });
+    // Add raw user message to history (for display)
+    chatHistory.push({ role: 'user', content: rawText });
 
     // Simulate brief "thinking" delay for realism
-    await new Promise(function (r) { setTimeout(r, 800 + Math.random() * 700); });
+    await new Promise(function (r) { setTimeout(r, 600 + Math.random() * 600); });
 
     // Remove typing indicator
     var indicator = document.getElementById('ai-typing-indicator');
     if (indicator) indicator.remove();
 
     try {
+        // Build window-limited history (last N pairs)
+        var maxItems = CHAT_WINDOW_PAIRS * 2;
+        var historyForSend = chatHistory.slice(-maxItems);
+
+        // Replace the final user message with a templated input that includes patient/wearable summary
+        var patientSummary = getPatientSummaryForPrompt();
+        var templatedUser = `Dựa trên dữ liệu thực tế: [${patientSummary}]\nCâu hỏi của người dùng: "${rawText}"\nLưu ý: Trả lời chuyên sâu nhưng KHÔNG khẳng định đây là chẩn đoán y khoa cuối cùng.`;
+
+        if (historyForSend.length > 0 && historyForSend[historyForSend.length - 1].role === 'user') {
+            historyForSend[historyForSend.length - 1] = { role: 'user', content: templatedUser };
+        } else {
+            historyForSend.push({ role: 'user', content: templatedUser });
+        }
+
         var bodyData = {
-            messages: [{ role: 'system', content: CHAT_SYSTEM_PROMPT }].concat(chatHistory),
+            messages: [{ role: 'system', content: CHAT_SYSTEM_PROMPT }].concat(historyForSend),
+            temperature: DEFAULT_TEMPERATURE,
+            top_p: DEFAULT_TOP_P,
             stream: false
         };
 
@@ -4325,7 +4383,6 @@ async function sendChatMessage() {
         });
 
         if (!response.ok) {
-            // If /api/chat fails, try localhost backend
             console.warn('API endpoint failed, trying localhost backend...');
             try {
                 response = await fetch('http://localhost:8899/api/chat', {
@@ -4346,11 +4403,11 @@ async function sendChatMessage() {
 
         var data = await response.json();
         var aiText = "";
-        
+
         if (data.choices && data.choices.length > 0) {
-            aiText = data.choices[0].message?.content || data.choices[0].message || ''; // OpenAI format
+            aiText = data.choices[0].message?.content || data.choices[0].message || '';
         } else if (data.message && data.message.content) {
-            aiText = data.message.content; // Ollama format
+            aiText = data.message.content;
         } else if (typeof data === 'string') {
             aiText = data;
         } else {
@@ -4368,8 +4425,7 @@ async function sendChatMessage() {
 
     } catch (e) {
         console.error("Chat API Error:", e);
-        // Fallback to offline logic
-        var fallbackResponse = getAIResponse(text);
+        var fallbackResponse = getAIResponse(rawText);
         var offlineHint = '<em style="color:#ffcc00;font-size:11px;">🔴 (AI Offline — Dùng chế độ Ngoại tuyến)</em><br>';
         appendChatMsg(offlineHint + formatAIResponse(fallbackResponse), 'bot');
         chatHistory.push({ role: 'assistant', content: fallbackResponse });
