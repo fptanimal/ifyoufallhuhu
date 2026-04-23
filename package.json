@@ -1,4 +1,7 @@
 {
+  "name": "ifyoufallhuhu",
+  "version": "1.0.0",
+  "main": "api/chat.js",
   "dependencies": {
     "@google/generative-ai": "^0.24.1"
   }
